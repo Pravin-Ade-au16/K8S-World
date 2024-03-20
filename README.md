@@ -114,5 +114,26 @@ finaly, switch the context as user
 
 ``` kubectl config use-context username --kubeconfig=<username>-config ```
 
+Now, let's test users kubeconfig by running the kubectl version command.
+
+``` kubectl version --kubeconfig=<username>-config ```
+We did not recieve any error shows that users kubecocnfig file is configured correctly.
+
+**7. Shares users kube config to their home directory**
+Next, we need to create /.kube directory in home directory of users and change ownership as well as execution permission to the users kubeconfig file so. user can run kubectl command without any error.
+
+```
+mkdir /home/user-name/.kube
+chown user:user /home//user-name/.kube
+chmod user:user /home//user-name/.kube
+cp -i user-config /home/user-name/.kube/
+chown user:user /home/user-name/.kube/user-config
+chmod 777 /home/user-name/.kube/user-config
+```
+
+Now, switch user
+
+Next, add environment variable permanently so, to do that
+edit the ~/.profile and add - export KUBECONFIG=/home/user-name/.kube/user-config to end of the file. save and exit.
 
 
