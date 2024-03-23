@@ -1,0 +1,11 @@
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+metadata:
+  name: <userName>-access # change as per your requirement
+spec:
+  groups:
+  - system: authenticated
+  request: $(cat <username.csr> | base64 -w 0) # convert output in one line
+signerName: kubernetes.io/kube-apiserver-client
+usages:
+- client auth
